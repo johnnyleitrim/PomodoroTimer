@@ -17,12 +17,12 @@ import javafx.scene.text.Font;
 public class PomodoroView {
   private Button startButton = new Button("Start");
   private Button stopButton = new Button("Stop");
-  private Button resetButton = new Button("Reset");
+  private Button restartButton = new Button("Restart");
   private Label time = new Label();
   private VBox layout;
 
   public PomodoroView(Duration initialTimeRemaining) {
-    HBox hbox = new HBox(startButton, stopButton, resetButton);
+    HBox hbox = new HBox(startButton, stopButton, restartButton);
     hbox.setPadding(new Insets(10, 10, 10, 10));
     hbox.setSpacing(10);
 
@@ -38,11 +38,11 @@ public class PomodoroView {
 
     startButton.setMaxWidth(Double.MAX_VALUE);
     stopButton.setMaxWidth(Double.MAX_VALUE);
-    resetButton.setMaxWidth(Double.MAX_VALUE);
+    restartButton.setMaxWidth(Double.MAX_VALUE);
 
     HBox.setHgrow(startButton, Priority.ALWAYS);
     HBox.setHgrow(stopButton, Priority.ALWAYS);
-    HBox.setHgrow(resetButton, Priority.ALWAYS);
+    HBox.setHgrow(restartButton, Priority.ALWAYS);
 
     VBox.setVgrow(time, Priority.ALWAYS);
 
@@ -66,8 +66,8 @@ public class PomodoroView {
     stopButton.setOnAction(eventHandler);
   }
 
-  public void setResetButtonHandler(EventHandler<ActionEvent> eventHandler) {
-    resetButton.setOnAction(eventHandler);
+  public void setRestartButtonHandler(EventHandler<ActionEvent> eventHandler) {
+    restartButton.setOnAction(eventHandler);
   }
 
 

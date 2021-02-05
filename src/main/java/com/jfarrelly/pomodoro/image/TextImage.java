@@ -9,6 +9,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 public class TextImage {
+  private static final int PADDING = 5;
   private final Image icon;
   private final BufferedImage image;
   private final Graphics2D graphics;
@@ -22,12 +23,13 @@ public class TextImage {
     iconWidth = (int) iconDimension.getWidth();
     int iconHeight = (int) iconDimension.getHeight();
     imageHeight = iconHeight;
-    imageWidth = iconWidth + (iconWidth * 4);
+    int fontHeight = imageHeight - (PADDING / 2);
+    imageWidth = iconWidth + PADDING + calculateWidthNeeded(iconWidth, imageHeight, fontHeight, text);
 
     image = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
     graphics = image.createGraphics();
 
-    Font font = new Font(Font.MONOSPACED, Font.BOLD, iconHeight);
+    Font font = new Font(Font.MONOSPACED, Font.BOLD, fontHeight);
     graphics.setFont(font);
 
     drawText(text);
@@ -35,6 +37,15 @@ public class TextImage {
 
   public Image getImage() {
     return image;
+  }
+
+  private static int calculateWidthNeeded(int imageWidth, int imageHeight, int fontHeight, String text) {
+    BufferedImage image = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
+    Graphics2D graphics = image.createGraphics();
+    Font font = new Font(Font.MONOSPACED, Font.BOLD, fontHeight);
+    graphics.setFont(font);
+    return graphics.getFontMetrics().stringWidth(text);
+
   }
 
   public void drawText(String text) {
@@ -47,6 +58,6 @@ public class TextImage {
 
     graphics.drawImage(icon, 0, 0, null);
     graphics.setColor(Color.RED);
-    graphics.drawString(text, iconWidth + 5, textY);
+    graphics.drawString(text, iconWidth + PADDING, textY);
   }
 }

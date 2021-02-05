@@ -7,6 +7,8 @@ import com.jfarrelly.pomodoro.model.CountdownTimerModel;
 import com.jfarrelly.pomodoro.tray.Tray;
 import com.jfarrelly.pomodoro.view.PomodoroView;
 
+import javafx.application.Platform;
+
 public class PomodoroController {
 
   private final CountdownTimer countdownTimer;
@@ -25,8 +27,9 @@ public class PomodoroController {
     countdownTimerModel.addListener((observable, oldValue, newValue) -> updateTimeRemaining(newValue));
     view.setStartButtonHandler(event -> countdownTimer.start());
     view.setStopButtonHandler(event -> stop());
-    view.setResetButtonHandler(event -> reset());
+    view.setRestartButtonHandler(event -> restart());
     tray.ifPresent(t -> t.addStopListener(event -> stop()));
+    tray.ifPresent(t -> t.addRestartListener(event -> restart()));
   }
 
   public void stop() {
@@ -42,8 +45,11 @@ public class PomodoroController {
     }
   }
 
-  private void reset() {
+  private void restart() {
     stop();
-    countdownTimerModel.reset();
+    Platform.runLater(() -> {
+      countdownTimerModel.reset();
+      countdownTimer.start();
+    });
   }
 }

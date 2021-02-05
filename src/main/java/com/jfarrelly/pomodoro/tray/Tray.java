@@ -6,6 +6,7 @@ import java.awt.MenuItem;
 import java.awt.PopupMenu;
 import java.awt.SystemTray;
 import java.awt.TrayIcon;
+import java.awt.TrayIcon.MessageType;
 import java.awt.event.ActionListener;
 import java.net.URL;
 import java.time.Duration;
@@ -21,13 +22,15 @@ public class Tray {
   private final TrayIcon trayIcon;
   private final TextImage textImage;
   private final MenuItem stopMenuItem;
+  private final MenuItem restartMenuItem;
 
-  public Tray(SystemTray tray, String tooltip, Duration timeRemaining) {
+  public Tray(SystemTray tray, String tooltip, Duration timeRemaining, URL iconUrl) {
     this.tray = tray;
     Dimension iconSize = tray.getTrayIconSize();
-    textImage = new TextImage(getIcon(iconSize), iconSize, asString(timeRemaining));
+    textImage = new TextImage(getIcon(iconSize, iconUrl), iconSize, asString(timeRemaining));
     stopMenuItem = new MenuItem("Stop");
-    trayIcon = new TrayIcon(textImage.getImage(), tooltip, createPopupMenu(stopMenuItem));
+    restartMenuItem = new MenuItem("Reset");
+    trayIcon = new TrayIcon(textImage.getImage(), tooltip, createPopupMenu(stopMenuItem, restartMenuItem));
     try {
       tray.add(trayIcon);
     } catch (Exception e) {
@@ -35,8 +38,7 @@ public class Tray {
     }
   }
 
-  private static Image getIcon(Dimension dimension) {
-    URL iconUrl = Tray.class.getResource("/images/tomato.png");
+  private static Image getIcon(Dimension dimension, URL iconUrl) {
     try {
       return ImageIO.read(iconUrl).getScaledInstance((int) dimension.getWidth(), (int) dimension.getHeight(), Image.SCALE_SMOOTH);
     } catch (Exception e) {
@@ -50,11 +52,15 @@ public class Tray {
 
   public void showMessage(String message) {
     System.out.println(message);
-    trayIcon.displayMessage(trayIcon.getToolTip(), message, TrayIcon.MessageType.INFO);
+    trayIcon.displayMessage(trayIcon.getToolTip(), message, MessageType.NONE);
   }
 
   public void addStopListener(ActionListener listener) {
     stopMenuItem.addActionListener(listener);
+  }
+
+  public void addRestartListener(ActionListener listener) {
+    restartMenuItem.addActionListener(listener);
   }
 
   public void setTimeRemaining(Duration timeRemaining) {
@@ -62,7 +68,7 @@ public class Tray {
     trayIcon.setImage(textImage.getImage());
   }
 
-  private PopupMenu createPopupMenu(MenuItem stop) {
+  private PopupMenu createPopupMenu(MenuItem... menuItems) {
     PopupMenu popupMenu = new PopupMenu();
 
     MenuItem exit = new MenuItem("Exit");
@@ -71,7 +77,9 @@ public class Tray {
       Platform.exit();
     });
 
-    popupMenu.add(stop);
+    for (MenuItem menuItem : menuItems) {
+      popupMenu.add(menuItem);
+    }
     popupMenu.addSeparator();
     popupMenu.add(exit);
 
