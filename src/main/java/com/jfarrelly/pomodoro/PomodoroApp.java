@@ -1,8 +1,11 @@
 package com.jfarrelly.pomodoro;
 
-import java.awt.*;
+import java.awt.SystemTray;
+import java.awt.Taskbar;
 import java.time.Duration;
 import java.util.Optional;
+
+import javax.imageio.ImageIO;
 
 import com.jfarrelly.pomodoro.model.CountdownTimerModel;
 import com.jfarrelly.pomodoro.tray.Tray;
@@ -42,6 +45,10 @@ public class PomodoroApp extends Application {
     pomodoroController = new PomodoroController(model, view, tray);
 
     Scene scene = new Scene(view.getLayout());
+
+    Taskbar taskbar = Taskbar.getTaskbar();
+    taskbar.setIconImage(ImageIO.read(PomodoroApp.class.getResourceAsStream("/images/tomato.png")));
+
     primaryStage.setScene(scene);
     primaryStage.show();
   }

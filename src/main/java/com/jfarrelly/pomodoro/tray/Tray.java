@@ -1,6 +1,11 @@
 package com.jfarrelly.pomodoro.tray;
 
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.MenuItem;
+import java.awt.PopupMenu;
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
 import java.awt.event.ActionListener;
 import java.net.URL;
 import java.time.Duration;
