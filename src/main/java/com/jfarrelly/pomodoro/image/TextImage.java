@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
 public class TextImage {
@@ -28,6 +29,7 @@ public class TextImage {
 
     image = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
     graphics = image.createGraphics();
+    graphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_GASP);
 
     Font font = new Font(Font.MONOSPACED, Font.BOLD, fontHeight);
     graphics.setFont(font);
