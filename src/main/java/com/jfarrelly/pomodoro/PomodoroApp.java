@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 public class PomodoroApp extends Application {
 
-  private static final Duration POMODORO_DURATION = Duration.ofSeconds(5);
+  private static final Duration POMODORO_DURATION = Duration.ofMinutes(25);
 
   private PomodoroController pomodoroController;
 
