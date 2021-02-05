@@ -28,8 +28,10 @@ public class PomodoroController {
     view.setStartButtonHandler(event -> countdownTimer.start());
     view.setStopButtonHandler(event -> stop());
     view.setRestartButtonHandler(event -> restart());
-    tray.ifPresent(t -> t.addStopListener(event -> stop()));
-    tray.ifPresent(t -> t.addRestartListener(event -> restart()));
+    tray.ifPresent(t -> {
+      t.addStopListener(event -> stop());
+      t.addRestartListener(event -> restart());
+    });
   }
 
   public void stop() {

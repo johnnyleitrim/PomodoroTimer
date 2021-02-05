@@ -45,7 +45,6 @@ public class TextImage {
     Font font = new Font(Font.MONOSPACED, Font.BOLD, fontHeight);
     graphics.setFont(font);
     return graphics.getFontMetrics().stringWidth(text);
-
   }
 
   public void drawText(String text) {
