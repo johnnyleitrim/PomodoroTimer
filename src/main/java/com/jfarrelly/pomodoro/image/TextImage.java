@@ -31,7 +31,7 @@ public class TextImage {
     graphics = image.createGraphics();
     graphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_GASP);
 
-    Font font = new Font(Font.MONOSPACED, Font.BOLD, fontHeight);
+    Font font = new Font(Font.SANS_SERIF, Font.BOLD, fontHeight);
     graphics.setFont(font);
 
     drawText(text);
@@ -44,7 +44,7 @@ public class TextImage {
   private static int calculateWidthNeeded(int imageWidth, int imageHeight, int fontHeight, String text) {
     BufferedImage image = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
     Graphics2D graphics = image.createGraphics();
-    Font font = new Font(Font.MONOSPACED, Font.BOLD, fontHeight);
+    Font font = new Font(Font.SANS_SERIF, Font.BOLD, fontHeight);
     graphics.setFont(font);
     return graphics.getFontMetrics().stringWidth(text);
   }
