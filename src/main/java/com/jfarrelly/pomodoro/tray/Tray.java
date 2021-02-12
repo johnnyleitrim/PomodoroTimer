@@ -22,15 +22,15 @@ public class Tray {
   private final TrayIcon trayIcon;
   private final TextImage textImage;
   private final MenuItem stopMenuItem;
-  private final MenuItem restartMenuItem;
+  private final MenuItem pomodoroMenuItem;
 
   public Tray(SystemTray tray, String tooltip, Duration timeRemaining, URL iconUrl) {
     this.tray = tray;
     Dimension iconSize = tray.getTrayIconSize();
     textImage = new TextImage(getIcon(iconSize, iconUrl), iconSize, asString(timeRemaining));
     stopMenuItem = new MenuItem("Stop");
-    restartMenuItem = new MenuItem("Reset");
-    trayIcon = new TrayIcon(textImage.getImage(), tooltip, createPopupMenu(stopMenuItem, restartMenuItem));
+    pomodoroMenuItem = new MenuItem("Pomodoro");
+    trayIcon = new TrayIcon(textImage.getImage(), tooltip, createPopupMenu(stopMenuItem, pomodoroMenuItem));
     try {
       tray.add(trayIcon);
     } catch (Exception e) {
@@ -58,8 +58,8 @@ public class Tray {
     stopMenuItem.addActionListener(listener);
   }
 
-  public void addRestartListener(ActionListener listener) {
-    restartMenuItem.addActionListener(listener);
+  public void addPomodoroListener(ActionListener listener) {
+    pomodoroMenuItem.addActionListener(listener);
   }
 
   public void setTimeRemaining(Duration timeRemaining) {

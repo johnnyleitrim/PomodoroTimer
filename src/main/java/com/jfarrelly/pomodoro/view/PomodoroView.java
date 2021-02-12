@@ -15,14 +15,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 public class PomodoroView {
-  private Button startButton = new Button("Start");
+  private Button breakButton = new Button("Break");
   private Button stopButton = new Button("Stop");
-  private Button restartButton = new Button("Restart");
+  private Button pomodoroButton = new Button("Pomodoro");
   private Label time = new Label();
   private VBox layout;
 
   public PomodoroView(Duration initialTimeRemaining) {
-    HBox hbox = new HBox(startButton, stopButton, restartButton);
+    HBox hbox = new HBox(breakButton, stopButton, pomodoroButton);
     hbox.setPadding(new Insets(10, 10, 10, 10));
     hbox.setSpacing(10);
 
@@ -36,13 +36,13 @@ public class PomodoroView {
     time.setContentDisplay(ContentDisplay.CENTER);
     time.setAlignment(Pos.CENTER);
 
-    startButton.setMaxWidth(Double.MAX_VALUE);
+    breakButton.setMaxWidth(Double.MAX_VALUE);
     stopButton.setMaxWidth(Double.MAX_VALUE);
-    restartButton.setMaxWidth(Double.MAX_VALUE);
+    pomodoroButton.setMaxWidth(Double.MAX_VALUE);
 
-    HBox.setHgrow(startButton, Priority.ALWAYS);
+    HBox.setHgrow(breakButton, Priority.ALWAYS);
     HBox.setHgrow(stopButton, Priority.ALWAYS);
-    HBox.setHgrow(restartButton, Priority.ALWAYS);
+    HBox.setHgrow(pomodoroButton, Priority.ALWAYS);
 
     VBox.setVgrow(time, Priority.ALWAYS);
 
@@ -58,16 +58,16 @@ public class PomodoroView {
     time.setText(clockText);
   }
 
-  public void setStartButtonHandler(EventHandler<ActionEvent> eventHandler) {
-    startButton.setOnAction(eventHandler);
+  public void setBreakButtonHandler(EventHandler<ActionEvent> eventHandler) {
+    breakButton.setOnAction(eventHandler);
   }
 
   public void setStopButtonHandler(EventHandler<ActionEvent> eventHandler) {
     stopButton.setOnAction(eventHandler);
   }
 
-  public void setRestartButtonHandler(EventHandler<ActionEvent> eventHandler) {
-    restartButton.setOnAction(eventHandler);
+  public void setPomodoroButtonHandler(EventHandler<ActionEvent> eventHandler) {
+    pomodoroButton.setOnAction(eventHandler);
   }
 
 

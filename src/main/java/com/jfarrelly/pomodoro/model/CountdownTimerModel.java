@@ -8,7 +8,6 @@ import javafx.beans.value.ChangeListener;
 public class CountdownTimerModel {
 
   private final SimpleLongProperty seconds;
-  private Duration countdownDuration;
 
   public CountdownTimerModel() {
     this(Duration.ZERO);
@@ -28,16 +27,11 @@ public class CountdownTimerModel {
   }
 
   public void setDuration(Duration duration) {
-    countdownDuration = duration;
     seconds.set(duration.toSeconds());
   }
 
   public void reduce(Duration duration) {
     seconds.set(Math.max(0, seconds.get() - duration.toSeconds()));
-  }
-
-  public void reset() {
-    seconds.set(countdownDuration.toSeconds());
   }
 
   public Duration getTimeRemaining() {

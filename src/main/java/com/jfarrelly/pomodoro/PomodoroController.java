@@ -25,12 +25,12 @@ public class PomodoroController {
     notificationSevice = new NotificationSevice(tray);
 
     countdownTimerModel.addListener((observable, oldValue, newValue) -> updateTimeRemaining(newValue));
-    view.setStartButtonHandler(event -> countdownTimer.start());
+    view.setBreakButtonHandler(event -> countdownTimer.startWithDuration(PomodoroApp.BREAK_DURATION));
     view.setStopButtonHandler(event -> stop());
-    view.setRestartButtonHandler(event -> restart());
+    view.setPomodoroButtonHandler(event -> startPomodoro());
     tray.ifPresent(t -> {
       t.addStopListener(event -> stop());
-      t.addRestartListener(event -> restart());
+      t.addPomodoroListener(event -> startPomodoro());
     });
   }
 
@@ -40,18 +40,16 @@ public class PomodoroController {
   }
 
   private void updateTimeRemaining(Duration timeRemaining) {
-    view.setTimeRemaining(timeRemaining);
-    tray.ifPresent(t -> t.setTimeRemaining(timeRemaining));
-    if (timeRemaining.isZero() || timeRemaining.isNegative()) {
-      notificationSevice.start();
-    }
+    Platform.runLater(() -> {
+      view.setTimeRemaining(timeRemaining);
+      tray.ifPresent(t -> t.setTimeRemaining(timeRemaining));
+      if (timeRemaining.isZero() || timeRemaining.isNegative()) {
+        notificationSevice.start();
+      }
+    });
   }
 
-  private void restart() {
-    stop();
-    Platform.runLater(() -> {
-      countdownTimerModel.reset();
-      countdownTimer.start();
-    });
+  private void startPomodoro() {
+    countdownTimer.startWithDuration(PomodoroApp.POMODORO_DURATION);
   }
 }

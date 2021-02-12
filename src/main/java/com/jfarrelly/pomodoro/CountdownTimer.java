@@ -18,22 +18,30 @@ public class CountdownTimer {
   }
 
   public void start() {
-    timerTask = new TimerTask() {
-      @Override
-      public void run() {
-        Platform.runLater(() -> timerModel.reduce(Duration.ofSeconds(1)));
-        if (!timerModel.hasTimeRemaining()) {
-          cancel();
+    if (timerTask == null) {
+      timerTask = new TimerTask() {
+        @Override
+        public void run() {
+          Platform.runLater(() -> timerModel.reduce(Duration.ofSeconds(1)));
+          if (!timerModel.hasTimeRemaining()) {
+            cancel();
+          }
         }
-      }
-    };
+      };
 
-    timer.schedule(timerTask, 0, 1000);
+      timer.schedule(timerTask, 0, 1000);
+    }
+  }
+
+  public void startWithDuration(Duration duration) {
+    timerModel.setDuration(duration);
+    start();
   }
 
   public void stop() {
     if (timerTask != null) {
       timerTask.cancel();
+      timerTask = null;
     }
   }
 }
