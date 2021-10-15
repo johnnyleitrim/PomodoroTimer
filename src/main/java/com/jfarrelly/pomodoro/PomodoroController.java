@@ -12,14 +12,12 @@ import javafx.application.Platform;
 public class PomodoroController {
 
   private final CountdownTimer countdownTimer;
-  private final CountdownTimerModel countdownTimerModel;
   private final PomodoroView view;
   private final NotificationSevice notificationSevice;
   private final Optional<Tray> tray;
 
   public PomodoroController(CountdownTimerModel countdownTimerModel, PomodoroView view, Optional<Tray> tray) {
     this.view = view;
-    this.countdownTimerModel = countdownTimerModel;
     this.tray = tray;
     countdownTimer = new CountdownTimer(countdownTimerModel);
     notificationSevice = new NotificationSevice(tray);

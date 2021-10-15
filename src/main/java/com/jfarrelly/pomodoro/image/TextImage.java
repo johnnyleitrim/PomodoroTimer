@@ -22,8 +22,7 @@ public class TextImage {
     this.icon = icon;
 
     iconWidth = (int) iconDimension.getWidth();
-    int iconHeight = (int) iconDimension.getHeight();
-    imageHeight = iconHeight;
+    imageHeight = (int) iconDimension.getHeight();
     int fontHeight = imageHeight - (PADDING / 2);
     imageWidth = iconWidth + PADDING + calculateWidthNeeded(iconWidth, imageHeight, fontHeight, text);
 

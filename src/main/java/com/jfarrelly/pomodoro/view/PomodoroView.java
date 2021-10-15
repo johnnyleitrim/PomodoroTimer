@@ -15,11 +15,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 public class PomodoroView {
-  private Button breakButton = new Button("Break");
-  private Button stopButton = new Button("Stop");
-  private Button pomodoroButton = new Button("Pomodoro");
-  private Label time = new Label();
-  private VBox layout;
+  private final Button breakButton = new Button("Break");
+  private final Button stopButton = new Button("Stop");
+  private final Button pomodoroButton = new Button("Pomodoro");
+  private final Label time = new Label();
+  private final VBox layout;
 
   public PomodoroView(Duration initialTimeRemaining) {
     HBox hbox = new HBox(breakButton, stopButton, pomodoroButton);
