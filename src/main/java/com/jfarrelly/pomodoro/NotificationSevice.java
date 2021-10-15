@@ -1,9 +1,8 @@
 package com.jfarrelly.pomodoro;
 
-import java.util.Optional;
-
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import java.util.Optional;
 
 import com.jfarrelly.pomodoro.tray.Tray;
 
@@ -25,7 +24,7 @@ public class NotificationSevice {
 
   public void start() {
     tray.ifPresent(t -> t.showMessage("Pomodoro completed!"));
-    audioClip.loop(Clip.LOOP_CONTINUOUSLY);
+    audioClip.loop(0);
   }
 
   public void stop() {
