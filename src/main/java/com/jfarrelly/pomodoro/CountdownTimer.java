@@ -34,6 +34,7 @@ public class CountdownTimer {
   }
 
   public void startWithDuration(Duration duration) {
+    stop();
     timerModel.setDuration(duration);
     start();
   }
